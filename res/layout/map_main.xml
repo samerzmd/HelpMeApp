@@ -1,0 +1,45 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.samerzmd.testthismap.MapMain"
+    tools:ignore="MergeRootFrame"
+    android:orientation="vertical">
+<RelativeLayout android:layout_width="fill_parent" android:layout_height="wrap_content" android:background="#000000"> 
+    <Button
+        android:id="@+id/AskForHelp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Ask For Help" 
+        android:layout_alignParentRight="true"
+        />
+    <TextView 
+        android:id="@+id/Name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="hi"
+        android:textColor="#FFFFFF"
+        android:textSize="28dp"
+        android:textStyle="bold"
+        android:layout_alignParentLeft="true"
+        android:paddingLeft="10dp"
+        />
+    
+</RelativeLayout>
+   
+
+    <fragment 
+        android:id="@+id/myMap"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        class="com.google.android.gms.maps.MapFragment"
+                
+        />
+
+   
+    
+</LinearLayout>
+
+
+
