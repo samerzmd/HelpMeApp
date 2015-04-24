@@ -19,6 +19,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.support.v4.widget.DrawerLayout;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import it.neokree.googlenavigationdrawer.GAccount;
@@ -32,9 +33,9 @@ public class MainActivity  extends GoogleNavigationDrawer implements GAccountLis
     public void init(Bundle savedInstanceState) {
 
         // add first account
-        GAccount account = new GAccount("NeoKree","neokree@gmail.com",this.getResources().getDrawable(R.drawable.photo),this.getResources().getDrawable(R.drawable.bamboo));
+        GAccount account = new GAccount("Samer Zuhair","samerzmd@gmail.com",this.getResources().getDrawable(R.drawable.photo),this.getResources().getDrawable(R.drawable.bamboo));
+        
         this.addAccount(account);
-
         // set listener
         this.setAccountListener(this);
 
@@ -51,6 +52,7 @@ public class MainActivity  extends GoogleNavigationDrawer implements GAccountLis
 
     @Override
     public void onAccountOpening(GAccount gAccount) {
-
+        getFragmentManager().beginTransaction()
+                .replace(R.id.frame_container, new BlankFragment()).commit();
     }
 }
