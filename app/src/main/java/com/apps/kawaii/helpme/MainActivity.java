@@ -39,11 +39,10 @@ public class MainActivity  extends GoogleNavigationDrawer implements GAccountLis
         this.setAccountListener(this);
 
         // add your sections
-        this.addSection(this.newSection("Map",new BlankFragment()));
-        this.addSection(this.newSection("Help Center",new BlankFragment()));
+        this.addSection(this.newSection("Map",this.getResources().getDrawable(R.drawable.ic_map_grey),new MapFragment()));
+        this.addSection(this.newSection("Help Center",this.getResources().getDrawable(R.drawable.ic_help_center),new BlankFragment()));
         this.addDivisor();
-        this.addSection(this.newSection("Recorder",this.getResources().getDrawable(R.drawable.ic_mic_white_24dp),new BlankFragment()).setNotifications(10));
-        this.addSection(this.newSection("Last Section", new BlankFragment()).setSectionColor((Color.parseColor("#ff9800")))); // material orange 500
+        this.addSection(this.newSection("Notifications",this.getResources().getDrawable(R.drawable.ic_notifications),new BlankFragment()).setNotifications(10));
 
         Intent i = new Intent(this,Contacts.Settings.class);
         this.addSection(this.newSection("Settings",this.getResources().getDrawable(R.drawable.ic_settings_black_24dp),i));
