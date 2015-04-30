@@ -1,6 +1,11 @@
-package com.apps.kawaii.helpme;
+package com.apps.kawaii.helpme.Activities;
 
 import android.os.Bundle;
+
+import com.apps.kawaii.helpme.Fragments.BlankFragment;
+import com.apps.kawaii.helpme.Fragments.MapFragment;
+import com.apps.kawaii.helpme.R;
+import com.apps.kawaii.helpme.Fragments.UserProfileFragment;
 
 import it.neokree.googlenavigationdrawer.GAccount;
 import it.neokree.googlenavigationdrawer.GAccountListener;
@@ -31,6 +36,6 @@ public class MainActivity  extends GoogleNavigationDrawer implements GAccountLis
     @Override
     public void onAccountOpening(GAccount gAccount) {
         getFragmentManager().beginTransaction()
-                .replace(R.id.frame_container, new BlankFragment()).commit();
+                .replace(R.id.frame_container, new UserProfileFragment()).commit();
     }
 }

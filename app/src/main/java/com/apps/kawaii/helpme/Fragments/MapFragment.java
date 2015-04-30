@@ -1,4 +1,4 @@
-package com.apps.kawaii.helpme;
+package com.apps.kawaii.helpme.Fragments;
 
 
 import android.app.Fragment;
@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.apps.kawaii.helpme.R;
 import com.mapbox.mapboxsdk.geometry.LatLng;
 import com.mapbox.mapboxsdk.views.MapView;
 
