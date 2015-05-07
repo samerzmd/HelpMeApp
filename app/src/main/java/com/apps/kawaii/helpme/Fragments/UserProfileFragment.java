@@ -1,13 +1,19 @@
 package com.apps.kawaii.helpme.Fragments;
 
 
+
 import android.os.Bundle;
-import android.app.Fragment;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.ListView;
 
 import com.apps.kawaii.helpme.R;
+
+import butterknife.ButterKnife;
+import butterknife.InjectView;
 
 
 /**
@@ -15,6 +21,11 @@ import com.apps.kawaii.helpme.R;
  */
 public class UserProfileFragment extends Fragment {
 
+
+    @InjectView(R.id.userImage)
+    ImageView userImage;
+    @InjectView(R.id.userInfoList)
+    ListView userInfoList;
 
     public UserProfileFragment() {
         // Required empty public constructor
@@ -25,8 +36,15 @@ public class UserProfileFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_user_profile, container, false);
+        View view = inflater.inflate(R.layout.fragment_user_profile, container, false);
+        ButterKnife.inject(this, view);
+        return view;
     }
 
 
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        ButterKnife.reset(this);
+    }
 }

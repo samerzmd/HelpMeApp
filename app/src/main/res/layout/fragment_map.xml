@@ -9,7 +9,7 @@
         android:id="@+id/mapview"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        mapbox:mapid="samerzmd.m0jccnk0"
+        mapbox:mapid="samerzmd.hcndjb58"
         mapbox:accessToken="pk.eyJ1Ijoic2FtZXJ6bWQiLCJhIjoiUlZGVGN1dyJ9.zdSOLyNOViKVeA_Reh0zNQ"
         />
 

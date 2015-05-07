@@ -35,7 +35,7 @@ public class MainActivity  extends GoogleNavigationDrawer implements GAccountLis
 
     @Override
     public void onAccountOpening(GAccount gAccount) {
-        getFragmentManager().beginTransaction()
+        getSupportFragmentManager().beginTransaction()
                 .replace(R.id.frame_container, new UserProfileFragment()).commit();
     }
 }
