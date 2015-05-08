@@ -2,17 +2,17 @@ package com.apps.kawaii.helpme.Fragments;
 
 
 import android.os.Bundle;
-
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.apps.kawaii.helpme.R;
-import com.viewpagerindicator.TabPageIndicator;
+import com.astuetz.PagerSlidingTabStrip;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -21,8 +21,7 @@ import butterknife.InjectView;
  * A simple {@link Fragment} subclass.
  */
 public class HelpCenterFragment extends Fragment {
-    @InjectView(R.id.home_tabs_indicator)
-    TabPageIndicator mTabIndicator;
+
 
     private static final String ARG_SECTION_NUMBER = "section_number";
     private Fragment[] homeFragments;
@@ -58,8 +57,10 @@ public class HelpCenterFragment extends Fragment {
                 R.id.home_tabs_pager);
         viewPager.setAdapter(new HomePagerAdapter(
                 getChildFragmentManager()));
+        PagerSlidingTabStrip tabs = (PagerSlidingTabStrip) view.findViewById(R.id.tabs);
+        tabs.setViewPager(viewPager);
 
-        mTabIndicator.setViewPager(viewPager);
+
         return view;
     }
     public class HomePagerAdapter extends FragmentPagerAdapter {

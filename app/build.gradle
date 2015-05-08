@@ -29,5 +29,5 @@ dependencies {
     compile ('com.mapbox.mapboxsdk:mapbox-android-sdk:0.7.3@aar'){ transitive=true  }
     compile 'com.jakewharton:butterknife:6.1.0'
     provided "org.projectlombok:lombok:1.12.6"
-    compile 'com.mcxiaoke.viewpagerindicator:library:2.4.1'
+    compile 'com.astuetz:pagerslidingtabstrip:1.0.1'
 }
