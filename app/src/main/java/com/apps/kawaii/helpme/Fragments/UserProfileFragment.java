@@ -10,10 +10,15 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ListView;
 
+import com.apps.kawaii.helpme.Adapters.UserInfoListAdapter;
+import com.apps.kawaii.helpme.Models.UserInfo;
 import com.apps.kawaii.helpme.R;
+
+import java.util.ArrayList;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+import lombok.val;
 
 
 /**
@@ -38,6 +43,25 @@ public class UserProfileFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_user_profile, container, false);
         ButterKnife.inject(this, view);
+        val a=new ArrayList<UserInfo>();
+
+        //for the sake of testing
+        //region test
+        UserInfo u= new UserInfo();
+        u.image= getResources().getDrawable( R.drawable.ic_launcher );
+        u.info="sdfjsfkj";
+        u.subInfo="sssss";
+        a.add(u);
+        a.add(u);
+        a.add(u);
+        a.add(u);
+        a.add(u);
+        a.add(u);
+        a.add(u);
+        a.add(u);
+        //endregion
+
+        userInfoList.setAdapter(new UserInfoListAdapter(getActivity(),a));
         return view;
     }
 

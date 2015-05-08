@@ -4,29 +4,94 @@ package com.apps.kawaii.helpme.Fragments;
 import android.os.Bundle;
 
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.apps.kawaii.helpme.R;
+import com.viewpagerindicator.TabPageIndicator;
+
+import butterknife.ButterKnife;
+import butterknife.InjectView;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class HelpCenterFragment extends Fragment {
+    @InjectView(R.id.home_tabs_indicator)
+    TabPageIndicator mTabIndicator;
 
+    private static final String ARG_SECTION_NUMBER = "section_number";
+    private Fragment[] homeFragments;
 
+    private static Class<?>[] homeFragmentClasses = {
+            BlankFragment.class, BlankFragment.class};
+
+    public static HelpCenterFragment newInstance(int sectionNumber) {
+        HelpCenterFragment fragment = new HelpCenterFragment();
+        Bundle args = new Bundle();
+        args.putInt(ARG_SECTION_NUMBER, sectionNumber);
+        fragment.setArguments(args);
+        return fragment;
+    }
     public HelpCenterFragment() {
         // Required empty public constructor
     }
 
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+
+        super.onCreate(savedInstanceState);
+        homeFragments = new Fragment[homeFragmentClasses.length];
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_help_center, container, false);
-    }
+        View view= inflater.inflate(R.layout.fragment_help_center, container, false);
+        ButterKnife.inject(this, view);
+        ViewPager viewPager = (ViewPager) view.findViewById(
+                R.id.home_tabs_pager);
+        viewPager.setAdapter(new HomePagerAdapter(
+                getChildFragmentManager()));
 
+        mTabIndicator.setViewPager(viewPager);
+        return view;
+    }
+    public class HomePagerAdapter extends FragmentPagerAdapter {
+
+        public HomePagerAdapter(FragmentManager fm) {
+            super(fm);
+        }
+
+        @Override
+        public int getCount() {
+            return homeFragments.length;
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            Fragment fg = null;
+
+            switch (position){
+                case 0:
+                    fg=new BlankFragment();
+                    break;
+                case 1:
+                    fg=new BlankFragment();
+                    break;
+            }
+            return fg;
+        }
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+            return "Help Center";
+        }
+    }
 
 }

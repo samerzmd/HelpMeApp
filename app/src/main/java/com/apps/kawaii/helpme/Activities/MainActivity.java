@@ -3,6 +3,7 @@ package com.apps.kawaii.helpme.Activities;
 import android.os.Bundle;
 
 import com.apps.kawaii.helpme.Fragments.BlankFragment;
+import com.apps.kawaii.helpme.Fragments.HelpCenterFragment;
 import com.apps.kawaii.helpme.Fragments.MapFragment;
 import com.apps.kawaii.helpme.R;
 import com.apps.kawaii.helpme.Fragments.UserProfileFragment;
@@ -26,7 +27,7 @@ public class MainActivity  extends GoogleNavigationDrawer implements GAccountLis
 
         // add your sections
         this.addSection(this.newSection("Map",this.getResources().getDrawable(R.drawable.ic_map_grey),new MapFragment()));
-        this.addSection(this.newSection("Help Center", this.getResources().getDrawable(R.drawable.ic_help_center), new BlankFragment()));
+        this.addSection(this.newSection("Help Center", this.getResources().getDrawable(R.drawable.ic_help_center),  HelpCenterFragment.newInstance(1)));
         this.addDivisor();
         this.addSection(this.newSection("Notifications",this.getResources().getDrawable(R.drawable.ic_notifications),new BlankFragment()).setNotifications(10));
         this.addSection(this.newSection("Settings",this.getResources().getDrawable(R.drawable.ic_settings_black_24dp),new BlankFragment()));

@@ -6,7 +6,7 @@ import android.graphics.drawable.Drawable;
  * Created by Samer on 30/04/2015.
  */
 public class UserInfo {
-    Drawable image;
-    String info;
-    String subInfo;
+    public Drawable image;
+    public String info;
+    public String subInfo;
 }

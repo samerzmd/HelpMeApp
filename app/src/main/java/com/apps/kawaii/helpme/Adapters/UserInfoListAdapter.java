@@ -1,6 +1,7 @@
 package com.apps.kawaii.helpme.Adapters;
 
 import android.content.Context;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -9,7 +10,6 @@ import com.apps.kawaii.helpme.Models.UserInfo;
 import com.apps.kawaii.helpme.R;
 
 import java.util.ArrayList;
-import java.util.zip.Inflater;
 
 /**
  * Created by Samer on 30/04/2015.
@@ -38,7 +38,11 @@ public class UserInfoListAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        View view=View.inflate(mContext, R.layout.user_info_list_item,parent);
-        return null;
+
+        LayoutInflater inflater = (LayoutInflater) mContext
+                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View view= inflater.inflate(R.layout.user_info_list_item,parent,false);
+
+        return view;
     }
 }

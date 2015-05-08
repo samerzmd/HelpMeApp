@@ -8,5 +8,4 @@
         <item name="colorAccent">@color/grey_900</item>
         <item name="android:navigationBarColor">@color/indigo_500</item>
     </style>
-
 </resources>
