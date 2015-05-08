@@ -19,7 +19,4 @@ public @Data class Help {
 
     public enum HelpStatus {available,done,notAvailable}
 
-    public Help(){
-
-    }
 }

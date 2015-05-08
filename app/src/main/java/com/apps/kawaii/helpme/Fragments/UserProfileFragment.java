@@ -47,10 +47,7 @@ public class UserProfileFragment extends Fragment {
 
         //for the sake of testing
         //region test
-        UserInfo u= new UserInfo();
-        u.image= getResources().getDrawable( R.drawable.ic_launcher );
-        u.info="sdfjsfkj";
-        u.subInfo="sssss";
+        UserInfo u= UserInfo.builder().image(getResources().getDrawable( R.drawable.ic_launcher )).info("sss").subInfo("Sssss").build();
         a.add(u);
         a.add(u);
         a.add(u);

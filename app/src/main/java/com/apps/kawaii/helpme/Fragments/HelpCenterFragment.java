@@ -27,7 +27,7 @@ public class HelpCenterFragment extends Fragment {
     private Fragment[] homeFragments;
 
     private static Class<?>[] homeFragmentClasses = {
-            BlankFragment.class, BlankFragment.class};
+            HelpRequesterFragment.class, BlankFragment.class};
 
     public static HelpCenterFragment newInstance(int sectionNumber) {
         HelpCenterFragment fragment = new HelpCenterFragment();
@@ -80,7 +80,7 @@ public class HelpCenterFragment extends Fragment {
 
             switch (position){
                 case 0:
-                    fg=new BlankFragment();
+                    fg=new HelpRequesterFragment();
                     break;
                 case 1:
                     fg=new BlankFragment();
