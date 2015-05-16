@@ -83,7 +83,7 @@ public class HelpCenterFragment extends Fragment {
                     fg=new HelpRequesterFragment();
                     break;
                 case 1:
-                    fg=new BlankFragment();
+                    fg=HelpHistoryFragment.newInstance();
                     break;
             }
             return fg;
