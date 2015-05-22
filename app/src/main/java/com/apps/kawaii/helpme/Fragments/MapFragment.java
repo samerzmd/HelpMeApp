@@ -6,9 +6,19 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.androidquery.callback.AjaxCallback;
+import com.androidquery.callback.AjaxStatus;
+import com.apps.kawaii.helpme.Models.CustomInfoWindow;
+import com.apps.kawaii.helpme.Models.Help;
 import com.apps.kawaii.helpme.R;
+import com.apps.kawaii.helpme.net.AjaxClient;
+import com.apps.kawaii.helpme.net.AjaxFactory;
 import com.mapbox.mapboxsdk.geometry.LatLng;
+import com.mapbox.mapboxsdk.overlay.Marker;
+import com.mapbox.mapboxsdk.views.InfoWindow;
 import com.mapbox.mapboxsdk.views.MapView;
+
+import lombok.val;
 
 
 /**
@@ -20,18 +30,52 @@ public class MapFragment extends Fragment {
     public MapFragment() {
         // Required empty public constructor
     }
+    MapView mMapView;
 
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        getHelpsAround();
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view= inflater.inflate(R.layout.fragment_map, container, false);
-        MapView mapview= (MapView) view.findViewById(R.id.mapview);
-        mapview.setCenter(new LatLng(31.98820428172846,35.90435028076172));
-        mapview.setZoom(18);
+        mMapView= (MapView) view.findViewById(R.id.mapview);
+        mMapView.setCenter(new LatLng(31.98820428172846, 35.90435028076172));
+        mMapView.setZoom(18);
         return view;
     }
 
+    public void getHelpsAround()
+    {
+       // AjaxFactory ajaxFactory=AjaxFactory.getHelpsAround("31.98820428172846","35.90435028076172",getActivity());
 
+        /*AjaxClient.sendRequest(getActivity(),ajaxFactory, Help[].class,new AjaxCallback<Help[]>(){
+            @Override
+            public void callback(String url, Help[] object, AjaxStatus status) {
+                drawNeededHelpsAround(object);
+            }
+        });*/
+        AjaxFactory ajaxFactory1=AjaxFactory.getHelpsAround2("baha",getActivity());
+        AjaxClient.sendRequest(getActivity(),ajaxFactory1,String.class,new AjaxCallback<String>(){
+            @Override
+            public void callback(String url, String object, AjaxStatus status) {
+                super.callback(url, object, status);
+            }
+        });
+    }
+
+    public void drawNeededHelpsAround(Help[] neededHelps){
+        for (Help currentHelp : neededHelps){
+            Marker marker=new Marker(currentHelp.title,currentHelp.description,new LatLng(currentHelp.latitude,currentHelp.logitude));
+            CustomInfoWindow c=new CustomInfoWindow(mMapView);
+            marker.setToolTip(c);
+            mMapView.addMarker(marker);
+
+        }
+
+    }
 }
