@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 
 import com.androidquery.callback.AjaxCallback;
 import com.androidquery.callback.AjaxStatus;
-import com.apps.kawaii.helpme.Models.CustomInfoWindow;
+
 import com.apps.kawaii.helpme.Models.Help;
 import com.apps.kawaii.helpme.R;
 import com.apps.kawaii.helpme.net.AjaxClient;
@@ -51,28 +51,21 @@ public class MapFragment extends Fragment {
 
     public void getHelpsAround()
     {
-       // AjaxFactory ajaxFactory=AjaxFactory.getHelpsAround("31.98820428172846","35.90435028076172",getActivity());
+        AjaxFactory ajaxFactory=AjaxFactory.getHelpsAround("31.98820428172846","35.90435028076172");
 
-        /*AjaxClient.sendRequest(getActivity(),ajaxFactory, Help[].class,new AjaxCallback<Help[]>(){
+        AjaxClient.sendRequest(getActivity(),ajaxFactory, Help[].class,new AjaxCallback<Help[]>(){
             @Override
             public void callback(String url, Help[] object, AjaxStatus status) {
                 drawNeededHelpsAround(object);
             }
-        });*/
-        AjaxFactory ajaxFactory1=AjaxFactory.getHelpsAround2("baha",getActivity());
-        AjaxClient.sendRequest(getActivity(),ajaxFactory1,String.class,new AjaxCallback<String>(){
-            @Override
-            public void callback(String url, String object, AjaxStatus status) {
-                super.callback(url, object, status);
-            }
         });
+
     }
 
     public void drawNeededHelpsAround(Help[] neededHelps){
         for (Help currentHelp : neededHelps){
             Marker marker=new Marker(currentHelp.title,currentHelp.description,new LatLng(currentHelp.latitude,currentHelp.logitude));
-            CustomInfoWindow c=new CustomInfoWindow(mMapView);
-            marker.setToolTip(c);
+
             mMapView.addMarker(marker);
 
         }

@@ -24,6 +24,7 @@ import java.util.Map;
 public class AjaxFactory  {
     //region services KEYS
     public static final String KEY_GET_HELPS_AROUND = "aroundhelps";
+    public static final String KEY_ASK_FOR_HELP="requesthelp";
     //endregion
     //region constant & vars
     private static final String TAG = "AjaxRequest";
@@ -182,27 +183,23 @@ public class AjaxFactory  {
     }
     //endregion
 
-    public static AjaxFactory getHelpsAround(String Lat, String Lon, Context context) {
-        MCrypt mCrypt=new MCrypt();
+    public static AjaxFactory getHelpsAround(String Lat, String Lon){
 
         AjaxFactory request = null;
         try {
             //31.988616, 35.905881
-            request = AjaxFactory.newGetRequest(generateUrl(KEY_GET_HELPS_AROUND,URLEncoder.encode(MCrypt.bytesToHex(mCrypt.encrypt(Lat.toString()))),URLEncoder.encode(MCrypt.bytesToHex(mCrypt.encrypt(Lon.toString())))));
+            request = AjaxFactory.newGetRequest(generateUrl(KEY_GET_HELPS_AROUND,Lat,Lon));
         } catch (Exception e) {
             e.printStackTrace();
         }
         return request;
     }
-    public static AjaxFactory getHelpsAround2(String Lat, Context context) {
-        MCrypt mCrypt=new MCrypt();
+    public static AjaxFactory askForHelp(String title,String Lat, String Lon,String category, String desc,String asker_Id) {
 
         AjaxFactory request = null;
         try {
             //31.988616, 35.905881
-            byte[] data = Lat.getBytes("UTF-16");
-            String base64 = Base64.encodeToString(data, Base64.DEFAULT);
-            request = AjaxFactory.newGetRequest(generateUrl("testenc",URLEncoder.encode(MCrypt.bytesToHex(mCrypt.encrypt(base64)))));
+            request = AjaxFactory.newGetRequest(generateUrl(KEY_ASK_FOR_HELP,title,Lat,Lon,category,desc,asker_Id));
         } catch (Exception e) {
             e.printStackTrace();
         }
