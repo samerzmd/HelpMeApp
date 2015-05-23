@@ -1,5 +1,7 @@
 package com.apps.kawaii.helpme.Fragments;
 
+import android.location.Location;
+import android.location.LocationListener;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -13,19 +15,21 @@ import com.apps.kawaii.helpme.Models.Help;
 import com.apps.kawaii.helpme.R;
 import com.apps.kawaii.helpme.net.AjaxClient;
 import com.apps.kawaii.helpme.net.AjaxFactory;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.LocationServices;
 import com.mapbox.mapboxsdk.geometry.LatLng;
 import com.mapbox.mapboxsdk.overlay.Marker;
-import com.mapbox.mapboxsdk.views.InfoWindow;
 import com.mapbox.mapboxsdk.views.MapView;
-
-import lombok.val;
 
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class MapFragment extends Fragment {
+public class MapFragment extends Fragment  {
 
+
+    private GoogleApiClient mGoogleApiClient;
 
     public MapFragment() {
         // Required empty public constructor
@@ -36,6 +40,7 @@ public class MapFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getHelpsAround();
+
     }
 
     @Override
@@ -65,9 +70,7 @@ public class MapFragment extends Fragment {
     public void drawNeededHelpsAround(Help[] neededHelps){
         for (Help currentHelp : neededHelps){
             Marker marker=new Marker(currentHelp.title,currentHelp.description,new LatLng(currentHelp.latitude,currentHelp.logitude));
-
             mMapView.addMarker(marker);
-
         }
 
     }

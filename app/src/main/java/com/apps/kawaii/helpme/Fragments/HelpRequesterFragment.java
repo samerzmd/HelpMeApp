@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.androidquery.callback.AjaxCallback;
 import com.androidquery.callback.AjaxStatus;
@@ -41,16 +42,17 @@ public class HelpRequesterFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_help_requester, container, false);
-        ButterKnife.inject(this,view);
+        ButterKnife.inject(this, view);
 
         helpSubmitBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AjaxFactory factory = AjaxFactory.askForHelp(helpTitle.getText().toString(),"31.988616","35.905881","..1..",helpDescription.getText().toString(),"1");
-                AjaxClient.sendRequest(getActivity(),factory,String.class,new AjaxCallback<String>(){
+                AjaxFactory factory = AjaxFactory.askForHelp(helpTitle.getText().toString(), "31.988616", "35.905881", "..1..", helpDescription.getText().toString(), "1");
+                AjaxClient.sendRequest(getActivity(), factory, String.class, new AjaxCallback<String>() {
                     @Override
                     public void callback(String url, String object, AjaxStatus status) {
                         super.callback(url, object, status);
+                        Toast.makeText(getActivity(),"Help has been submitted",Toast.LENGTH_SHORT).show();
                     }
                 });
             }

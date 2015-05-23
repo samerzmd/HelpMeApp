@@ -1,22 +1,12 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:orientation="vertical"
     android:layout_height="match_parent"
     xmlns:materialdesign="http://schemas.android.com/apk/res-auto"
     tools:context="com.apps.kawaii.helpme.Fragments.HelpHistoryFragment">
-
-    <Button
+    <ListView
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:text="what"/>
-    <com.gc.materialdesign.views.ButtonFloat
-        android:id="@+id/buttonFloat"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginRight="24dp"
-        android:layout_marginBottom="24dp"
-        android:background="@color/indigo_500"
-        materialdesign:iconDrawable="@drawable/ic_action_new" />
+        android:id="@+id/HelpList"></ListView>
 
-</RelativeLayout>
+</LinearLayout>
