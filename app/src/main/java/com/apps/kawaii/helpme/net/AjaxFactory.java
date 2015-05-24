@@ -25,6 +25,7 @@ public class AjaxFactory  {
     //region services KEYS
     public static final String KEY_GET_HELPS_AROUND = "aroundhelps";
     public static final String KEY_ASK_FOR_HELP="requesthelp";
+    public static final String KEY_ACCEPT_HELP="accepthelp";
     //endregion
     //region constant & vars
     private static final String TAG = "AjaxRequest";
@@ -200,6 +201,16 @@ public class AjaxFactory  {
         try {
             //31.988616, 35.905881
             request = AjaxFactory.newGetRequest(generateUrl(KEY_ASK_FOR_HELP,title,Lat,Lon,category,desc,asker_Id));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return request;
+    }
+    public static AjaxFactory acceptHelp(String helpId,String currentId){
+        AjaxFactory request = null;
+        try {
+            //31.988616, 35.905881
+            request = AjaxFactory.newGetRequest(generateUrl(KEY_ACCEPT_HELP,helpId,currentId));
         } catch (Exception e) {
             e.printStackTrace();
         }

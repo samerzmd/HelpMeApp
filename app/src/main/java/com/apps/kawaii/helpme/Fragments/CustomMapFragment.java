@@ -11,8 +11,13 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 
+import com.androidquery.callback.AjaxCallback;
+import com.androidquery.callback.AjaxStatus;
+import com.apps.kawaii.helpme.Models.Help;
 import com.apps.kawaii.helpme.R;
 import com.apps.kawaii.helpme.Utils.MapPoint;
+import com.apps.kawaii.helpme.net.AjaxClient;
+import com.apps.kawaii.helpme.net.AjaxFactory;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -39,40 +44,14 @@ public class CustomMapFragment extends SupportMapFragment {
     double mLatitude = 0;
     double mLongitude = 0;
     private boolean isFirstTime = true;
-    MapMarkerHelper mapMarkerHelper;
 
-    public static final String EXTRA_POINTS = "com.apps.kawaii.helpme.extra_point";
-    public HashMap<Marker, MapPoint> pointsMap;
-    private LatLng mCurrentLocation;
+    public HashMap<Marker, Help> pointsMap;
+    private Location mCurrentLocation;
 
-    public interface MapMarkerHelper {
-        public ArrayList<MapPoint> parsePoints(Bundle bundle);
-
-        public GoogleMap.InfoWindowAdapter getInfoWindowAdapter(HashMap<Marker, MapPoint> points);
-
-        public void onInfoWindowClick(Marker marker, MapPoint mapPoint, LatLng currentLocation);
-
-        public void onLocationChanged(Location location);
-    }
-
-    public static CustomMapFragment newInstance(ArrayList points) {
+        public static CustomMapFragment newInstance() {
         CustomMapFragment customMapFragment = new CustomMapFragment();
-        Bundle args = new Bundle();
-        args.putParcelableArrayList(CustomMapFragment.EXTRA_POINTS, points);
-        customMapFragment.setArguments(args);
-
         return customMapFragment;
 
-    }
-
-    @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        if (activity instanceof MapMarkerHelper) {
-            mapMarkerHelper = (MapMarkerHelper) activity;
-        } else {
-            Log.w(TAG, "Parent Activity must implements MapMarkerHelper");
-        }
     }
 
 
@@ -100,8 +79,8 @@ public class CustomMapFragment extends SupportMapFragment {
 
             // Getting Map for the SupportMapFragment
             mGoogleMap = fm.getMap();
-
-            if (mapMarkerHelper != null) {
+//region ss
+           /* if (mapMarkerHelper != null) {
                 pointsMap = new HashMap<Marker, MapPoint>();
                 ArrayList<MapPoint> points = mapMarkerHelper.parsePoints(getArguments());
                 Iterator<MapPoint> iterator = points.iterator();
@@ -124,8 +103,8 @@ public class CustomMapFragment extends SupportMapFragment {
 
                         mapMarkerHelper.onInfoWindowClick(marker, pointsMap.get(marker), mCurrentLocation);
                     }
-                });
-
+                });*/
+//endregion
             }
 
             // Enable MyLocation Button in the Map
@@ -147,10 +126,16 @@ public class CustomMapFragment extends SupportMapFragment {
                 locationListener.onLocationChanged(location);
             }
 
-            locationManager.requestLocationUpdates(provider, 20000, 0, locationListener);
-        }
+            locationManager.requestLocationUpdates(provider, 2000, 0, locationListener);
+            mCurrentLocation = locationManager
+                .getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+        if (mCurrentLocation != null) {
+            locationListener.onLocationChanged(mCurrentLocation);
 
+        }
     }
+
+
 
     public static int getPixelsFromDp(Context context, float dp) {
         final float scale = context.getResources().getDisplayMetrics().density;
@@ -172,13 +157,13 @@ public class CustomMapFragment extends SupportMapFragment {
 
     }
 
-    public void moveCameraToPoint(MapPoint mapPoint) {
+    public void moveCameraToPoint(Help help) {
         isFirstTime=false;
         Set<Marker> Markers = pointsMap.keySet();
-        mGoogleMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(mapPoint.getLatitude(),mapPoint.getLongitude())));
+        mGoogleMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(help.latitude, help.logitude)));
         for(Marker marker : Markers) {
-            MapPoint p = pointsMap.get(marker);
-            if (mapPoint.equals(p))
+            Help p = pointsMap.get(marker);
+            if (help.equals(p))
             {
                 marker.showInfoWindow();
             }
@@ -190,17 +175,29 @@ public class CustomMapFragment extends SupportMapFragment {
         public void onLocationChanged(Location location) {
             mLatitude = location.getLatitude();
             mLongitude = location.getLongitude();
-            mCurrentLocation = new LatLng(mLatitude, mLongitude);
+            mCurrentLocation = location;
             if (isFirstTime) {
-                mGoogleMap.moveCamera(CameraUpdateFactory.newLatLng(mCurrentLocation));
+                mGoogleMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(mLatitude,mLongitude)));
                 mGoogleMap.animateCamera(CameraUpdateFactory.zoomTo(12));
                 isFirstTime = false;
             }
+            AjaxFactory factory=AjaxFactory.getHelpsAround(String.valueOf(location.getLatitude()),String.valueOf(location.getLongitude()));
+            AjaxClient.sendRequest(getActivity(),factory, Help[].class,new AjaxCallback<Help[]>(){
+                @Override
+                public void callback(String url, Help[] object, AjaxStatus status) {
+                    pointsMap = new HashMap<Marker, Help>();
+                    for (Help help :object){
 
-            if (mapMarkerHelper != null) {
-                mapMarkerHelper.onLocationChanged(location);
-            }
-
+                            Log.d(TAG, "Point: " + help.latitude + "," + help.logitude);
+                            LatLng ll = new LatLng( help.latitude, help.logitude);
+                            MarkerOptions markerOptions = new MarkerOptions()
+                                    .position(ll);
+                            markerOptions.icon(BitmapDescriptorFactory.fromResource(R.drawable.service_pin));
+                            Marker marker = mGoogleMap.addMarker(markerOptions);
+                            pointsMap.put(marker,help);
+                    }
+                }
+            });
         }
 
         @Override
@@ -218,4 +215,5 @@ public class CustomMapFragment extends SupportMapFragment {
 
         }
     };
+
 }

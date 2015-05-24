@@ -7,12 +7,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.androidquery.callback.AjaxCallback;
+import com.androidquery.callback.AjaxStatus;
 import com.apps.kawaii.helpme.Models.Help;
 import com.apps.kawaii.helpme.R;
+import com.apps.kawaii.helpme.net.AjaxClient;
+import com.apps.kawaii.helpme.net.AjaxFactory;
 import com.gc.materialdesign.views.ButtonRectangle;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import butterknife.ButterKnife;
@@ -58,7 +64,7 @@ public class HelpListAdapter extends BaseAdapter {
         else{
             viewHolder = (ViewHolder) convertView.getTag();
         }
-        Help currentHelp=getItem(position);
+        final Help currentHelp=getItem(position);
         viewHolder.helpTitle.setText(currentHelp.title==null?"":currentHelp.title);
         viewHolder.helpDescription.setText(currentHelp.description==null?"":currentHelp.description);
         viewHolder.checkUserAccountButton.setOnClickListener(new View.OnClickListener() {
@@ -70,7 +76,25 @@ public class HelpListAdapter extends BaseAdapter {
         viewHolder.responeToHelpBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //todo respone
+                AjaxFactory factory=AjaxFactory.acceptHelp(String.valueOf(currentHelp.id),"1");
+                AjaxClient.sendRequest(mContext,factory,String.class,new AjaxCallback<String>(){
+                    @Override
+                    public void callback(String url, String object, AjaxStatus status) {
+                        super.callback(url, object, status);
+                        object= object.contains("true")?"done":"failed";
+                        Toast.makeText(mContext,object,Toast.LENGTH_SHORT).show();
+                        AjaxFactory ajaxFactory=AjaxFactory.getHelpsAround("31.98820428172846", "35.90435028076172");
+
+                        AjaxClient.sendRequest(mContext, ajaxFactory, Help[].class, new AjaxCallback<Help[]>() {
+                            @Override
+                            public void callback(String url, Help[] object, AjaxStatus status) {
+                                mHelps = Arrays.asList(object);
+                                notifyDataSetChanged();
+                            }
+                        });
+
+                    }
+                });
             }
         });
         return convertView;

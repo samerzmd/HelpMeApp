@@ -1,9 +1,13 @@
 apply plugin: 'com.android.application'
 
 android {
+    signingConfigs {
+        Debug {
+            storeFile file('C:/Users/Samer/.android/debug.keystore')
+        }
+    }
     compileSdkVersion 22
     buildToolsVersion "22.0.1"
-
     defaultConfig {
         applicationId "com.apps.kawaii.helpme"
         minSdkVersion 16

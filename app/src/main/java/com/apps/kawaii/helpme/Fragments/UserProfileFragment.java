@@ -43,7 +43,7 @@ public class UserProfileFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_user_profile, container, false);
         ButterKnife.inject(this, view);
-        val a=new ArrayList<UserInfo>();
+        ArrayList<UserInfo> a=new ArrayList<UserInfo>();
 
         //for the sake of testing
         //region test

@@ -1,6 +1,10 @@
 <resources>
+    <!--AIzaSyBqS7Hx25Bp_O_aW9_jAjp6ZDwRGPLv6sk
+    AIzaSyB_odCqPF0DxOpA9VU0ITUskcDx2oPlK68 signed
+    AIzaSyAWjWvuHgBrpk-CcbCC1z2hNToWpNvgRH4
+    -->
+    <string name="API_KEY">AIzaSyBqS7Hx25Bp_O_aW9_jAjp6ZDwRGPLv6sk</string>
     <string name="app_name">HelpMe</string>
-
     <string name="title_section1">Section 1</string>
     <string name="title_section2">Section 2</string>
     <string name="title_section3">Section 3</string>

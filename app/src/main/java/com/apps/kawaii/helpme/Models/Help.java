@@ -8,6 +8,9 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.Date;
 
+import lombok.Data;
+import lombok.experimental.Builder;
+
 /**
  * Created by Samer on 08/05/2015.
  */
