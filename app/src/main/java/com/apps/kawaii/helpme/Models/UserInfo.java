@@ -1,7 +1,5 @@
 package com.apps.kawaii.helpme.Models;
 
-import android.graphics.drawable.Drawable;
-
 import lombok.Data;
 import lombok.experimental.Builder;
 
@@ -10,7 +8,13 @@ import lombok.experimental.Builder;
  */
 @Builder
 public @Data class UserInfo {
-    public Drawable image;
+    public int image;
     public String info;
     public String subInfo;
+
+    public UserInfo(int image, String info, String subInfo) {
+        this.image = image;
+        this.info = info;
+        this.subInfo = subInfo;
+    }
 }

@@ -3,6 +3,7 @@ package com.apps.kawaii.helpme.Fragments;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
@@ -13,6 +14,8 @@ import android.view.View;
 
 import com.androidquery.callback.AjaxCallback;
 import com.androidquery.callback.AjaxStatus;
+import com.apps.kawaii.helpme.Activities.HelpDetailsActivity;
+import com.apps.kawaii.helpme.Adapters.HelpInfoWindowAdapter;
 import com.apps.kawaii.helpme.Models.Help;
 import com.apps.kawaii.helpme.R;
 import com.apps.kawaii.helpme.Utils.MapPoint;
@@ -116,7 +119,7 @@ public class CustomMapFragment extends SupportMapFragment {
             // Creating a criteria object to retrieve provider
             Criteria criteria = new Criteria();
 
-            // Getting the name of the best provider
+            // Getting the username of the best provider
             String provider = locationManager.getBestProvider(criteria, true);
 
             // Getting Current Location From GPS
@@ -194,7 +197,18 @@ public class CustomMapFragment extends SupportMapFragment {
                                     .position(ll);
                             markerOptions.icon(BitmapDescriptorFactory.fromResource(R.drawable.service_pin));
                             Marker marker = mGoogleMap.addMarker(markerOptions);
-                            pointsMap.put(marker,help);
+                            pointsMap.put(marker, help);
+                            HelpInfoWindowAdapter adapter=new HelpInfoWindowAdapter(getActivity().getLayoutInflater(),pointsMap);
+                            mGoogleMap.setInfoWindowAdapter(adapter);
+                            mGoogleMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
+                                @Override
+                                public void onInfoWindowClick(Marker marker) {
+                                    Intent o = new Intent(getActivity(), HelpDetailsActivity.class);
+                                    o.putExtra(HelpDetailsActivity.KEY_HELP, pointsMap.get(marker));
+                                    getActivity().startActivity(o);
+                                }
+                            });
+
                     }
                 }
             });
@@ -216,4 +230,9 @@ public class CustomMapFragment extends SupportMapFragment {
         }
     };
 
+    @Override
+    public void onPause() {
+        super.onPause();
+        isFirstTime=true;
+    }
 }

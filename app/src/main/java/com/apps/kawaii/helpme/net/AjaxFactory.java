@@ -26,6 +26,7 @@ public class AjaxFactory  {
     public static final String KEY_GET_HELPS_AROUND = "aroundhelps";
     public static final String KEY_ASK_FOR_HELP="requesthelp";
     public static final String KEY_ACCEPT_HELP="accepthelp";
+    public static final String KEY_GET_USER="user";
     //endregion
     //region constant & vars
     private static final String TAG = "AjaxRequest";
@@ -216,4 +217,15 @@ public class AjaxFactory  {
         }
         return request;
     }
+    public  static AjaxFactory getUser(String userId){
+        AjaxFactory request = null;
+        try {
+            //31.988616, 35.905881
+            request = AjaxFactory.newGetRequest(generateUrl(KEY_GET_USER,userId));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return request;
+    }
+
 }

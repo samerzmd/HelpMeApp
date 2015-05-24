@@ -61,7 +61,7 @@ public class MapFragment extends Fragment  {
         // Creating a criteria object to retrieve provider
         Criteria criteria = new Criteria();
 
-        // Getting the name of the best provider
+        // Getting the username of the best provider
         String provider = locationManager.getBestProvider(criteria, true);
 
         // Getting Current Location From GPS

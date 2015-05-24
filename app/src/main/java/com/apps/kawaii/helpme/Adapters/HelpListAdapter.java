@@ -2,6 +2,7 @@ package com.apps.kawaii.helpme.Adapters;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,7 @@ import android.widget.Toast;
 
 import com.androidquery.callback.AjaxCallback;
 import com.androidquery.callback.AjaxStatus;
+import com.apps.kawaii.helpme.Activities.HelpDetailsActivity;
 import com.apps.kawaii.helpme.Models.Help;
 import com.apps.kawaii.helpme.R;
 import com.apps.kawaii.helpme.net.AjaxClient;
@@ -67,34 +69,12 @@ public class HelpListAdapter extends BaseAdapter {
         final Help currentHelp=getItem(position);
         viewHolder.helpTitle.setText(currentHelp.title==null?"":currentHelp.title);
         viewHolder.helpDescription.setText(currentHelp.description==null?"":currentHelp.description);
-        viewHolder.checkUserAccountButton.setOnClickListener(new View.OnClickListener() {
+        convertView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //todo open user profile
-            }
-        });
-        viewHolder.responeToHelpBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AjaxFactory factory=AjaxFactory.acceptHelp(String.valueOf(currentHelp.id),"1");
-                AjaxClient.sendRequest(mContext,factory,String.class,new AjaxCallback<String>(){
-                    @Override
-                    public void callback(String url, String object, AjaxStatus status) {
-                        super.callback(url, object, status);
-                        object= object.contains("true")?"done":"failed";
-                        Toast.makeText(mContext,object,Toast.LENGTH_SHORT).show();
-                        AjaxFactory ajaxFactory=AjaxFactory.getHelpsAround("31.98820428172846", "35.90435028076172");
-
-                        AjaxClient.sendRequest(mContext, ajaxFactory, Help[].class, new AjaxCallback<Help[]>() {
-                            @Override
-                            public void callback(String url, Help[] object, AjaxStatus status) {
-                                mHelps = Arrays.asList(object);
-                                notifyDataSetChanged();
-                            }
-                        });
-
-                    }
-                });
+                Intent o=new Intent(mContext, HelpDetailsActivity.class);
+                o.putExtra(HelpDetailsActivity.KEY_HELP,currentHelp);
+                mContext.startActivity(o);
             }
         });
         return convertView;
@@ -106,10 +86,6 @@ public class HelpListAdapter extends BaseAdapter {
         TextView helpTitle;
         @InjectView(R.id.helpDescription)
         TextView helpDescription;
-        @InjectView(R.id.responeToHelpBtn)
-        ButtonRectangle responeToHelpBtn;
-        @InjectView(R.id.checkUserAccountButton)
-        ButtonRectangle checkUserAccountButton;
 
         ViewHolder(View view) {
             ButterKnife.inject(this, view);

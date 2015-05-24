@@ -14,25 +14,5 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/helpTitle"
         android:layout_alignParentLeft="true"/>
-    <com.gc.materialdesign.views.ButtonRectangle
-        android:id="@+id/responeToHelpBtn"
-        android:layout_width="130dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_centerHorizontal="true"
-        android:text="Help Me"
-        android:background="@color/indigo_500"
-        />
-    <com.gc.materialdesign.views.ButtonRectangle
-        android:id="@+id/checkUserAccountButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_centerHorizontal="true"
-        android:layout_alignLeft="@id/responeToHelpBtn"
-        android:layout_below="@id/responeToHelpBtn"
-        android:background="@color/indigo_500"
-        android:textAlignment="center"
-        android:text="Check My Profile"
-        />
+
 </RelativeLayout>
