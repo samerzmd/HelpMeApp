@@ -1,6 +1,10 @@
 package com.apps.kawaii.helpme.Fragments;
 
 
+import android.app.Activity;
+import android.location.Criteria;
+import android.location.Location;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -44,19 +48,45 @@ public class HelpRequesterFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_help_requester, container, false);
         ButterKnife.inject(this, view);
 
+        LocationManager locationManager = (LocationManager) getActivity().getSystemService(Activity.LOCATION_SERVICE);
+
+        // Creating a criteria object to retrieve provider
+        Criteria criteria = new Criteria();
+
+        // Getting the username of the best provider
+        String provider = locationManager.getBestProvider(criteria, true);
+
+        // Getting Current Location From GPS
+        Location location = locationManager.getLastKnownLocation(provider);
+
+        if (location == null) {
+            location = locationManager
+                    .getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+        }
+
+
+        final Location finalLocation = location;
         helpSubmitBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AjaxFactory factory = AjaxFactory.askForHelp(helpTitle.getText().toString(), "31.988616", "35.905881", "..1..", helpDescription.getText().toString(), "1");
-                AjaxClient.sendRequest(getActivity(), factory, String.class, new AjaxCallback<String>() {
-                    @Override
-                    public void callback(String url, String object, AjaxStatus status) {
-                        super.callback(url, object, status);
-                        Toast.makeText(getActivity(),"Help has been submitted",Toast.LENGTH_SHORT).show();
+                @Override
+                public void onClick(View v) {
+                    if (finalLocation !=null){
+                    AjaxFactory factory = AjaxFactory.askForHelp(helpTitle.getText().toString(), "31.988616", "35.905881", "..1..", helpDescription.getText().toString(), "1");
+                    AjaxClient.sendRequest(getActivity(), factory, String.class, new AjaxCallback<String>() {
+                        @Override
+                        public void callback(String url, String object, AjaxStatus status) {
+                            super.callback(url, object, status);
+                            
+                            Toast.makeText(getActivity(), "Help has been submitted", Toast.LENGTH_SHORT).show();
+                        }
+                    });
                     }
-                });
-            }
-        });
+                    else Toast.makeText(getActivity(), "Sorry we are unable to locate you, please check your location service", Toast.LENGTH_LONG).show();
+                }
+            });
+
+
+
+
         return view;
     }
 
