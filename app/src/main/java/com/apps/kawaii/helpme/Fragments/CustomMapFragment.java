@@ -10,7 +10,10 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.androidquery.callback.AjaxCallback;
 import com.androidquery.callback.AjaxStatus;
@@ -21,6 +24,7 @@ import com.apps.kawaii.helpme.R;
 import com.apps.kawaii.helpme.Utils.MapPoint;
 import com.apps.kawaii.helpme.net.AjaxClient;
 import com.apps.kawaii.helpme.net.AjaxFactory;
+import com.gc.materialdesign.views.ButtonFloat;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -32,8 +36,10 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -57,6 +63,17 @@ public class CustomMapFragment extends SupportMapFragment {
 
     }
 
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view= super.onCreateView(inflater, container, savedInstanceState);
+        Button buttonFloat=new Button(getActivity());
+        buttonFloat.setText("ssss");
+        buttonFloat.setLayoutParams(new ViewGroup.LayoutParams(
+                ViewGroup.LayoutParams.WRAP_CONTENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT));
+        container.addView(buttonFloat);
+        return view;
+    }
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
@@ -129,7 +146,7 @@ public class CustomMapFragment extends SupportMapFragment {
                 locationListener.onLocationChanged(location);
             }
 
-            locationManager.requestLocationUpdates(provider, 2000, 0, locationListener);
+            locationManager.requestLocationUpdates(provider, 8000, 0, locationListener);
             mCurrentLocation = locationManager
                 .getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
         if (mCurrentLocation != null) {
@@ -173,6 +190,7 @@ public class CustomMapFragment extends SupportMapFragment {
         }
     }
 
+    private boolean isFirstLoad=true;
     private LocationListener locationListener = new LocationListener() {
         @Override
         public void onLocationChanged(Location location) {
@@ -188,30 +206,51 @@ public class CustomMapFragment extends SupportMapFragment {
             AjaxClient.sendRequest(getActivity(),factory, Help[].class,new AjaxCallback<Help[]>(){
                 @Override
                 public void callback(String url, Help[] object, AjaxStatus status) {
-                    mGoogleMap.clear();
-                    pointsMap = new HashMap<Marker, Help>();
-                    for (final Help help :object){
+                    if (pointsMap!=null)
+                    for (Marker marker:pointsMap.keySet()){
+                        if (!Arrays.asList(object).contains(pointsMap.get(marker))){
+                            marker.remove();
+                        }
+                    }
+                    if (isFirstLoad) {
+                        pointsMap=new HashMap<Marker, Help>();
+                        for (Help help : object) {
 
+                            isFirstLoad = false;
                             Log.d(TAG, "Point: " + help.latitude + "," + help.logitude);
-                            LatLng ll = new LatLng( help.latitude, help.logitude);
-                            MarkerOptions markerOptions = new MarkerOptions()
-                                    .position(ll);
+                            LatLng ll = new LatLng(help.latitude, help.logitude);
+                            MarkerOptions markerOptions = new MarkerOptions().position(ll);
                             markerOptions.icon(BitmapDescriptorFactory.fromResource(R.drawable.service_pin));
                             Marker marker = mGoogleMap.addMarker(markerOptions);
-                            pointsMap.put(marker, help);
-                            HelpInfoWindowAdapter adapter=new HelpInfoWindowAdapter(getActivity().getLayoutInflater(),pointsMap);
-                            mGoogleMap.setInfoWindowAdapter(adapter);
-                            mGoogleMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
-                                @Override
-                                public void onInfoWindowClick(Marker marker) {
-                                    Intent o = new Intent(getActivity(), HelpDetailsActivity.class);
-                                    Help help1=pointsMap.get(marker);
-                                    o.putExtra(HelpDetailsActivity.KEY_HELP, help1);
-                                    getActivity().startActivity(o);
-                                }
-                            });
 
+                            pointsMap.put(marker, help);
+                        }
                     }
+                     else {
+                        for (Help help : object) {
+                            if (!pointsMap.containsValue(help)) {
+                                Log.d(TAG, "Point: " + help.latitude + "," + help.logitude);
+                                LatLng ll = new LatLng(help.latitude, help.logitude);
+                                MarkerOptions markerOptions = new MarkerOptions()
+                                        .position(ll);
+                                markerOptions.icon(BitmapDescriptorFactory.fromResource(R.drawable.service_pin));
+                                Marker marker = mGoogleMap.addMarker(markerOptions);
+                                pointsMap.put(marker, help);
+                            }
+                        }
+                    }
+
+                    HelpInfoWindowAdapter adapter=new HelpInfoWindowAdapter(getActivity().getLayoutInflater(),pointsMap);
+                    mGoogleMap.setInfoWindowAdapter(adapter);
+                    mGoogleMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
+                        @Override
+                        public void onInfoWindowClick(Marker marker) {
+                            Intent o = new Intent(getActivity(), HelpDetailsActivity.class);
+                            Help help1=pointsMap.get(marker);
+                            o.putExtra(HelpDetailsActivity.KEY_HELP, help1);
+                            getActivity().startActivity(o);
+                        }
+                    });
                 }
             });
         }

@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import com.apps.kawaii.helpme.Fragments.BlankFragment;
 import com.apps.kawaii.helpme.Fragments.CustomMapFragment;
 import com.apps.kawaii.helpme.Fragments.HelpCenterFragment;
+import com.apps.kawaii.helpme.Fragments.MapContainerFragment;
 import com.apps.kawaii.helpme.Fragments.MapFragment;
 import com.apps.kawaii.helpme.Fragments.NotificationsFragment;
 import com.apps.kawaii.helpme.InternalSystemClasses.HelpApplication;
@@ -42,7 +43,7 @@ public class MainActivity  extends GoogleNavigationDrawer implements GAccountLis
         this.setAccountListener(this);
 
         // add your sections
-        this.addSection(this.newSection("Map",this.getResources().getDrawable(R.drawable.ic_map_grey), CustomMapFragment.newInstance()));
+        this.addSection(this.newSection("Map",this.getResources().getDrawable(R.drawable.ic_map_grey), new MapContainerFragment()));
         this.addSection(this.newSection("Help Center", this.getResources().getDrawable(R.drawable.ic_help_center), HelpCenterFragment.newInstance(1)));
         this.addDivisor();
         this.addSection(this.newSection("Notifications", this.getResources().getDrawable(R.drawable.ic_notifications), NotificationsFragment.newInstance()));

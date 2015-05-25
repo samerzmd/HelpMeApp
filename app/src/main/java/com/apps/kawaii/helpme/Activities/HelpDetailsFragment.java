@@ -42,6 +42,8 @@ public class HelpDetailsFragment extends Fragment {
     TextView categoryTxv;
     @InjectView(R.id.approveHelpBtn)
     ButtonRectangle approveHelpBtn;
+    @InjectView(R.id.helpOnWayTxv)
+    TextView helpOnWayTxv;
 
     public static Fragment newInstance(Help help) {
         HelpDetailsFragment fragment = new HelpDetailsFragment();
@@ -60,9 +62,9 @@ public class HelpDetailsFragment extends Fragment {
         final Help help = getArguments().getParcelable(ARGS_HELP);
         View view = inflater.inflate(R.layout.fragment_help_detalis, container, false);
         ButterKnife.inject(this, view);
-        helpTitleTxv.setText(help.title==null?"":help.title);
-        helpDescription.setText(help.description==null?"":help.description);
-        categoryTxv.setText(help.category==null?"":help.category);
+        helpTitleTxv.setText(help.title == null ? "" : help.title);
+        helpDescription.setText(help.description == null ? "" : help.description);
+        categoryTxv.setText(help.category == null ? "" : help.category);
 
         if (help.respondent_id == null) {
             responeToHelpBtn.setOnClickListener(new View.OnClickListener() {
@@ -80,13 +82,12 @@ public class HelpDetailsFragment extends Fragment {
             checkUserAccountButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent o=new Intent(getActivity(),UserActivity.class);
-                    o.putExtra(UserActivity.KEY_USER_ID,help.asker_id);
+                    Intent o = new Intent(getActivity(), UserActivity.class);
+                    o.putExtra(UserActivity.KEY_USER_ID, help.asker_id);
                     getActivity().startActivity(o);
                 }
             });
-        }
-        else if (help.asker_id==HelpApplication.appUser.id){
+        } else if (help.asker_id == HelpApplication.appUser.id) {
             responeToHelpBtn.setVisibility(View.GONE);
             approveHelpBtn.setVisibility(View.VISIBLE);
             approveHelpBtn.setOnClickListener(new View.OnClickListener() {
@@ -104,15 +105,17 @@ public class HelpDetailsFragment extends Fragment {
             checkUserAccountButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent o=new Intent(getActivity(),UserActivity.class);
-                    o.putExtra(UserActivity.KEY_USER_ID,help.respondent_id);
+                    Intent o = new Intent(getActivity(), UserActivity.class);
+                    o.putExtra(UserActivity.KEY_USER_ID, help.respondent_id);
                     getActivity().startActivity(o);
                 }
             });
         }
-        if (help.status==3){
+        if (help.status == 3) {
             checkUserAccountButton.setVisibility(View.GONE);
-            
+            approveHelpBtn.setVisibility(View.GONE);
+            responeToHelpBtn.setVisibility(View.GONE);
+            helpOnWayTxv.setVisibility(View.VISIBLE);
         }
         return view;
     }

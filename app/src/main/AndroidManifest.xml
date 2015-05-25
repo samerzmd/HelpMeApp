@@ -39,7 +39,7 @@
         </activity>
         <activity
             android:name=".Activities.LoginActivity"
-            android:label="@string/title_activity_login" >
+            android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -49,6 +49,10 @@
         <activity
             android:name=".Activities.UserActivity"
             android:label="@string/title_activity_user" >
+        </activity>
+        <activity
+            android:name=".Activities.NewHelpActivity"
+            android:label="@string/title_activity_new_help" >
         </activity>
     </application>
 
