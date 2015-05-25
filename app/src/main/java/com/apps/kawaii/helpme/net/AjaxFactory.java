@@ -27,6 +27,9 @@ public class AjaxFactory  {
     public static final String KEY_ASK_FOR_HELP="requesthelp";
     public static final String KEY_ACCEPT_HELP="accepthelp";
     public static final String KEY_GET_USER="user";
+    public static final String KEY_LOGIN="login";
+    public static final String KEY_MY_ASKED_HELPS="myasked";
+    public static final String KEY_APPROVE="approve";
     //endregion
     //region constant & vars
     private static final String TAG = "AjaxRequest";
@@ -222,6 +225,37 @@ public class AjaxFactory  {
         try {
             //31.988616, 35.905881
             request = AjaxFactory.newGetRequest(generateUrl(KEY_GET_USER,userId));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return request;
+    }
+    public static AjaxFactory login(String email){
+        AjaxFactory request = null;
+        try {
+            //31.988616, 35.905881
+            request = AjaxFactory.newGetRequest(generateUrl(KEY_LOGIN,email));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return request;
+    }
+
+    public static  AjaxFactory getAskedHelps(String id){
+        AjaxFactory request = null;
+        try {
+            //31.988616, 35.905881
+            request = AjaxFactory.newGetRequest(generateUrl(KEY_MY_ASKED_HELPS,id));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return request;
+    }
+    public static AjaxFactory approveHelp(String helpId){
+        AjaxFactory request = null;
+        try {
+            //31.988616, 35.905881
+            request = AjaxFactory.newGetRequest(generateUrl(KEY_APPROVE,helpId));
         } catch (Exception e) {
             e.printStackTrace();
         }

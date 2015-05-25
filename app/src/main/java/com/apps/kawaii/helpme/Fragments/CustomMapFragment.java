@@ -188,8 +188,9 @@ public class CustomMapFragment extends SupportMapFragment {
             AjaxClient.sendRequest(getActivity(),factory, Help[].class,new AjaxCallback<Help[]>(){
                 @Override
                 public void callback(String url, Help[] object, AjaxStatus status) {
+                    mGoogleMap.clear();
                     pointsMap = new HashMap<Marker, Help>();
-                    for (Help help :object){
+                    for (final Help help :object){
 
                             Log.d(TAG, "Point: " + help.latitude + "," + help.logitude);
                             LatLng ll = new LatLng( help.latitude, help.logitude);
@@ -204,7 +205,8 @@ public class CustomMapFragment extends SupportMapFragment {
                                 @Override
                                 public void onInfoWindowClick(Marker marker) {
                                     Intent o = new Intent(getActivity(), HelpDetailsActivity.class);
-                                    o.putExtra(HelpDetailsActivity.KEY_HELP, pointsMap.get(marker));
+                                    Help help1=pointsMap.get(marker);
+                                    o.putExtra(HelpDetailsActivity.KEY_HELP, help1);
                                     getActivity().startActivity(o);
                                 }
                             });

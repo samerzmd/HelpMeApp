@@ -2,44 +2,39 @@ package com.apps.kawaii.helpme.Fragments;
 
 
 import android.os.Bundle;
-import android.app.Fragment;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 
+import com.androidquery.callback.AjaxCallback;
+import com.androidquery.callback.AjaxStatus;
+import com.apps.kawaii.helpme.Adapters.HelpListAdapter;
+import com.apps.kawaii.helpme.InternalSystemClasses.HelpApplication;
+import com.apps.kawaii.helpme.Models.Help;
 import com.apps.kawaii.helpme.R;
+import com.apps.kawaii.helpme.net.AjaxClient;
+import com.apps.kawaii.helpme.net.AjaxFactory;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link NotificationsFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import java.util.ArrayList;
+import java.util.Arrays;
+
+import butterknife.ButterKnife;
+import butterknife.InjectView;
+
 public class NotificationsFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    @InjectView(R.id.HelpList)
+    ListView HelpList;
 
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment NotificationsFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static NotificationsFragment newInstance(String param1, String param2) {
+
+
+    public static NotificationsFragment newInstance() {
         NotificationsFragment fragment = new NotificationsFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
         return fragment;
     }
 
@@ -50,18 +45,36 @@ public class NotificationsFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_notifications, container, false);
+        View view = inflater.inflate(R.layout.fragment_notifications, container, false);
+        ButterKnife.inject(this, view);
+        AjaxFactory ajaxFactory = AjaxFactory.getAskedHelps(String.valueOf(HelpApplication.appUser.id));
+
+        AjaxClient.sendRequest(getActivity(), ajaxFactory, Help[].class, new AjaxCallback<Help[]>() {
+            @Override
+            public void callback(String url, Help[] object, AjaxStatus status) {
+                ArrayList<Help>helps=new ArrayList<Help>();
+                for (Help help:object){
+                    if (help.respondent_id!=null || help.status==3)
+                        helps.add(help);
+                }
+
+                HelpList.setAdapter(new HelpListAdapter(getActivity(), helps));
+            }
+        });
+
+        return view;
     }
 
 
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        ButterKnife.reset(this);
+    }
 }

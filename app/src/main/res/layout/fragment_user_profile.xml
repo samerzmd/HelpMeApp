@@ -1,15 +1,13 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent" tools:context="com.apps.kawaii.helpme.Fragments.UserProfileFragment"
-    android:weightSum="3"
     android:orientation="vertical">
 <ImageView
     android:src="@drawable/ic_launcher"
     android:layout_width="fill_parent"
-    android:layout_height="0dp"
-    android:layout_weight="1"
+    android:layout_height="200dp"
     android:id="@+id/userImage"
-    android:scaleType="centerCrop" />
+    android:scaleType="fitXY" />
 <ListView
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"

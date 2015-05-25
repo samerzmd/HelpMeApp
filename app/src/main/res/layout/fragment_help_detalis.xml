@@ -14,6 +14,15 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true" />
     <com.gc.materialdesign.views.ButtonRectangle
+        android:visibility="gone"
+        android:id="@+id/approveHelpBtn"
+        android:layout_width="130dp"
+        android:layout_height="wrap_content"
+        android:text="Approve this person"
+        android:background="@color/indigo_500"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true" />
+    <com.gc.materialdesign.views.ButtonRectangle
         android:id="@+id/checkUserAccountButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
