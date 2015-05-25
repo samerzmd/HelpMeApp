@@ -87,4 +87,5 @@
     <string name="invalid_email_message">Provided e-mail address is invalid</string>
     <string name="title_activity_help_details">Help Details</string>
     <string name="hello_world">Hello world!</string>
+    <string name="title_activity_login">LoginActivity</string>
 </resources>

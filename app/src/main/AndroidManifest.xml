@@ -10,6 +10,7 @@
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
 
     <application
+        android:name=".InternalSystemClasses.HelpApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -25,19 +26,24 @@
             android:name=".Activities.MainActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".Activities.HelpDetailsActivity"
+            android:label="@string/title_activity_help_details"
+            android:parentActivityName=".Activities.MainActivity"
+            android:theme="@style/AppTheme" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.apps.kawaii.helpme.Activities.MainActivity" />
+        </activity>
+        <activity
+            android:name=".Activities.LoginActivity"
+            android:label="@string/title_activity_login" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-        <activity
-            android:name=".Activities.HelpDetailsActivity"
-            android:label="@string/title_activity_help_details" android:theme="@style/AppTheme"
-            android:parentActivityName="com.apps.kawaii.helpme.Activities.MainActivity" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.apps.kawaii.helpme.Activities.MainActivity" />
         </activity>
     </application>
 
