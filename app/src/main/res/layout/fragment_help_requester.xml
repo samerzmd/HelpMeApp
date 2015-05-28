@@ -1,0 +1,39 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.apps.kawaii.helpme.Fragments.HelpRequesterFragment">
+
+
+    <EditText
+        android:textColor="@color/black"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="40dp"
+        android:id="@+id/helpTitle"
+        android:hint="The Help Title"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        />
+
+    <EditText
+        android:textColor="@color/black"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:minLines="4"
+        android:hint="Help Description"
+        android:layout_marginTop="5dp"
+        android:layout_below="@id/helpTitle"
+        android:id="@+id/helpDescription"
+        />
+
+    <com.gc.materialdesign.views.ButtonRectangle
+        android:id="@+id/helpSubmitBtn"
+        android:layout_width="fill_parent"
+        android:textSize="30sp"
+        android:layout_height="wrap_content"
+        android:background="@color/indigo_500"
+        android:text="Submit a Needed Help"
+        android:layout_alignParentBottom="true"/>
+
+
+</RelativeLayout>

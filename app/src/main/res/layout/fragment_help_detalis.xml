@@ -1,0 +1,99 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context="com.apps.kawaii.helpme.Activities.HelpDetailsFragment">
+    <com.gc.materialdesign.views.ButtonRectangle
+        android:id="@+id/responeToHelpBtn"
+        android:layout_width="130dp"
+        android:layout_height="wrap_content"
+        android:text="Help Me"
+        android:background="@color/indigo_500"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true" />
+    <com.gc.materialdesign.views.ButtonRectangle
+        android:visibility="gone"
+        android:id="@+id/approveHelpBtn"
+        android:layout_width="130dp"
+        android:layout_height="wrap_content"
+        android:text="Approve this person"
+        android:background="@color/indigo_500"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true" />
+    <com.gc.materialdesign.views.ButtonRectangle
+        android:id="@+id/checkUserAccountButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/indigo_500"
+        android:textAlignment="center"
+        android:text="Check My Profile"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Large Text"
+        android:id="@+id/helpTitleTxv"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:textColor="@color/grey_black_1000"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="@color/grey_black_1000"
+        android:text="Medium Text"
+        android:id="@+id/helpDescription"
+        android:layout_below="@+id/helpTitleTxv"
+        android:layout_alignParentLeft="true"
+         />
+    <View
+        android:layout_marginTop="8dp"
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:background="@color/black"
+        android:layout_below="@id/helpDescription"
+        android:id="@+id/div">
+
+    </View>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Large Text"
+        android:textColor="@color/grey_black_1000"
+        android:id="@+id/categoryTitle"
+        android:layout_below="@+id/div"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Category"
+        android:id="@+id/categoryTxv"
+        android:layout_below="@+id/categoryTitle"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:textColor="@color/grey_black_1000"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Help is on the way"
+        android:id="@+id/helpOnWayTxv"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:textColor="@color/grey_black_1000"
+        android:visibility="gone"/>
+
+</RelativeLayout>

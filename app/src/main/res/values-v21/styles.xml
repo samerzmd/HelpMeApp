@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+ <style name="AppTheme" parent="GoogleNavigationDrawerTheme.Light.DarkActionBar">
+
+        <item name="android:textColorPrimary">@color/white</item>
+        <item name="colorPrimary">@color/indigo_700</item>
+        <item name="android:colorPrimaryDark">@color/indigo_900</item>
+        <item name="colorAccent">@color/grey_900</item>
+        <item name="android:navigationBarColor">@color/indigo_500</item>
+    </style>
+</resources>

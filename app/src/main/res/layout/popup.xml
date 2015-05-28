@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/service_popup">
+
+    <ImageView
+        android:id="@+id/icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:src="@drawable/ic_help_center"
+        android:visibility="visible"
+        android:paddingBottom="28dp"
+        android:paddingLeft="8dp"
+        android:layout_marginRight="4dp"
+        android:contentDescription="@string/app_name" />
+
+    <TextView
+        android:paddingTop="4dp"
+        tools:text="Title"
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="14sp"
+        android:textColor="@color/orange_400"
+        android:layout_toRightOf="@id/icon"
+        android:textStyle="bold" />
+
+    <TextView
+        android:paddingTop="4dp"
+        tools:text="Address"
+        android:id="@+id/address"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="12sp"
+        android:layout_below="@id/title"
+        android:textColor="@android:color/white"
+        android:layout_toRightOf="@id/icon"
+        android:textStyle="bold" />
+
+    <TextView
+        android:paddingTop="4dp"
+        tools:text="Computing Distance..."
+        android:text="computing distance"
+        android:id="@+id/distance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="10sp"
+        android:layout_below="@id/address"
+        android:textColor="@color/white"
+        android:layout_toRightOf="@id/icon"
+        android:textStyle="bold" />
+
+    <ImageView
+        android:paddingRight="24dp"
+        android:paddingBottom="20dp"
+        android:layout_centerVertical="true"
+        android:layout_alignParentRight="true"
+        android:src="@android:drawable/stat_sys_vp_phone_call"
+        android:id="@+id/callButton"
+        android:visibility="gone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <ImageView
+        android:paddingRight="24dp"
+        android:layout_alignParentRight="true"
+        android:paddingBottom="20dp"
+        android:layout_centerVertical="true"
+        android:id="@+id/navigationButton"
+        android:layout_width="wrap_content"
+        android:src="@drawable/service_pin"
+        android:layout_height="wrap_content" />
+</RelativeLayout>
+
