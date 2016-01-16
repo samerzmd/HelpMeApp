@@ -8,7 +8,7 @@ import lombok.experimental.Builder;
 /**
  * Created by Samer on 08/05/2015.
  */
-@Builder
+
 public @Data class User {
     @SerializedName("id")
     public int id;

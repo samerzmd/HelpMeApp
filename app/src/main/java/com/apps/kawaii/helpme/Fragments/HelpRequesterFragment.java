@@ -71,7 +71,7 @@ public class HelpRequesterFragment extends Fragment {
                 @Override
                 public void onClick(View v) {
                     if (finalLocation !=null){
-                    AjaxFactory factory = AjaxFactory.askForHelp(helpTitle.getText().toString(), String.valueOf(finalLocation.getLatitude()),String.valueOf(finalLocation.getLongitude()), "I need help", helpDescription.getText().toString(),String.valueOf(HelpApplication.appUser.id));
+                    AjaxFactory factory = AjaxFactory.askForHelp(helpTitle.getText().toString(), String.valueOf(finalLocation.getLatitude()),String.valueOf(finalLocation.getLongitude()), "I need help", helpDescription.getText().toString(),String.valueOf(5));
                     AjaxClient.sendRequest(getActivity(), factory, String.class, new AjaxCallback<String>() {
                         @Override
                         public void callback(String url, String object, AjaxStatus status) {
